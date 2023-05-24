@@ -1,0 +1,9 @@
+app:
+  cache1:
+    max-items: 100
+    item-size: 64
+    item-version: "v1"
+  cache2:
+    max-items: 200
+    item-size: 80
+    item-version: "v2"

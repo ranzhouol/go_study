@@ -1,0 +1,6 @@
+chart:
+    values:
+        ingress:
+            annotations:
+                traefik.frontend.rule.type: PathPrefix
+                traefik.ingress.kubernetes.io/ssl-redirect: "true"
