@@ -1,0 +1,53 @@
+// 声明使用的是 proto3 语法
+syntax = "proto3";
+
+// grpc服务的命名空间
+package helloworld;
+// 最后生成的go文件的目录
+option go_package = ".";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
+// 定义服务
+service Greeter{
+  // 一元调用
+  rpc SayHello(HelloRequest) returns(HelloReply) {}
+  // 客户端流(多个请求)，上传文件场景
+  rpc SayHelloClientStream(stream HelloRequest) returns(HelloReply) {}
+  // 服务端流，下载文件场景
+  rpc SayHelloServerStream(HelloRequest) returns(stream HelloReply) {}
+  // 双向流，机器人客服场景一问一答
+  rpc SayHelloTwoWayStream(stream HelloRequest) returns(stream HelloReply) {}
+}
+
+// 枚举类型(必须从0开始), 常量
+enum Gender {
+  FEMALE = 0;
+  MELE = 1;
+  UNKNOWN = 3;
+
+  reserved 4;
+}
+
+// 定义消息体，类似结构体
+message HelloRequest{
+  string name =1;
+  int32 gender = 2;
+  uint32 age = 3;
+  google.protobuf.Timestamp birthday = 4;
+  Address addr = 7;
+  repeated string hobbys = 8;
+  map<string,google.protobuf.Any> data = 9;
+  // 预留字段
+  reserved 5,6, 10 to 14;
+  reserved "phone","email";
+}
+
+message Address {
+  string province = 1;
+  string city = 2;
+}
+
+message HelloReply{
+  string msg = 1;
+}
